@@ -10,12 +10,20 @@ export default function Assignments() {
         <ul id="wd-assignment-list">
           <li className="wd-assignment-list-item">
             <a href="#/Kambaz/Courses/1234/Assignments/123"
-               className="wd-assignment-link" >
+               className="wd-assignment-link">
               A1 - ENV + HTML
-            </a> </li>
+            </a></li>
           <li className="wd-assignment-list-item">
-            {/* Complete On Your Own */}
-          </li>
+            <a href="#/Kambaz/Courses/1234/Assignments/123"
+               className="wd-assignment-link">
+              A2 - ENV + HTML
+            </a></li>
+          <li className="wd-assignment-list-item">
+            <a href="#/Kambaz/Courses/1234/Assignments/123"
+               className="wd-assignment-link">
+              A3 - ENV + HTML
+            </a></li>
         </ul>
       </div>
-  );}
+  );
+}
