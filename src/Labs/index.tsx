@@ -15,6 +15,8 @@ export default function Labs() {
   return (
       <div id={"wd-labs"}>
         <h1>Labs</h1>
+        <h2>Surender Soundiramourty</h2>
+        <a href={'https://github.com/surenderpsm/kambaz-react-web-app.git'} id={"wd-github"}>Github repo link</a>
         <TOC />
         <Routes>
           <Route path="/" element={<Navigate to="Lab1" />} />
