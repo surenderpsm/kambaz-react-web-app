@@ -5,7 +5,7 @@ import Home from "./Home";
 import Assignments from "./Assignments";
 import AssignmentEditor from "./Assignments/Editor.tsx";
 import {FaAlignJustify} from "react-icons/fa";
-import PeopleTable from "./People/table.tsx";
+import PeopleTable from "./People/Table.tsx";
 export default function Courses() {
   return (
       <div id="wd-courses">
