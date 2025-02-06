@@ -63,7 +63,7 @@ export default function Profile() {
               </select>
             </div>
             <Link
-                to="/Kanbas/Account/Signin"
+                to="/Kambaz/Account/Signin"
                 className="btn btn-danger w-100">
               Sign Out
             </Link>

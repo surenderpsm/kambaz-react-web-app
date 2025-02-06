@@ -26,7 +26,7 @@ export default function Signin() {
             </div>
             <Link
                 id="wd-signin-btn"
-                to="/Kanbas/Account/Profile"
+                to="/Kambaz/Account/Profile"
                 className="btn btn-primary w-100 mb-3">
               Sign In
             </Link>
@@ -34,7 +34,7 @@ export default function Signin() {
           <div className="text-center">
             <Link
                 id="wd-signup-link"
-                to="/Kanbas/Account/Signup"
+                to="/Kambaz/Account/Signup"
                 className="text-primary"> Sign Up
             </Link>
           </div>
