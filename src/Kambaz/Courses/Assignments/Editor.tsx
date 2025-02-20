@@ -1,122 +1,121 @@
-import { Form, Button, Row, Col } from 'react-bootstrap';
+import { useParams, Link } from 'react-router-dom';
+import * as db from "../../Database";
 
 export default function AssignmentEditor() {
+  const { aid, cid } = useParams();
+  const { assignments } = db;
+
+  const assignment = assignments.find(assignment => assignment._id === aid);
+
+  if (!assignment) {
+    return <div>Assignment not found</div>;
+  }
+
   return (
-      <div id="wd-assignments-editor" className="w-75">
-        <div className="d-flex justify-content-between align-items-center mb-4">
-          <h2>Assignment Details</h2>
-        </div>
+      <div className="container mt-4">
+        <form id="wd-assignments-editor">
+          <div className="form-group mb-4">
+            <label htmlFor="wd-name" className="mb-2">Assignment Name</label>
+            <input id="wd-name" className="form-control" defaultValue={assignment.title} />
+          </div>
 
-        <Form>
-          <Form.Group className="mb-3">
-            <Form.Label><strong>Assignment Name</strong></Form.Label>
-            <Form.Control id="wd-name" defaultValue="A1 - ENV + HTML" />
-          </Form.Group>
-
-          <Form.Group className="mb-4">
-            <Form.Label>Description</Form.Label>
-            <Form.Control
-                as="textarea"
-                rows={6}
-                id="wd-description"
-                defaultValue="The assignment is available online Submit a link to the landing page of your web application running on netlify. The landing page should include the following: your full name and section links to each of the lab assignments Link to Kambaz application Links to all relevant source code repositories The Kambaz application should include a link to navigate back to the landing page."
-            />
-          </Form.Group>
-
-          <Row className="mb-3">
-            <Col md={3} className="text-end">
-              <Form.Label>Points</Form.Label>
-            </Col>
-            <Col md={9}>
-              <Form.Control type="number" id="wd-points" defaultValue={100} />
-            </Col>
-          </Row>
-
-          <Row className="mb-3">
-            <Col md={3} className="text-end">
-              <Form.Label>Assignment Group</Form.Label>
-            </Col>
-            <Col md={9}>
-              <Form.Select id="wd-group">
-                <option value="Assignments">Assignments</option>
-              </Form.Select>
-            </Col>
-          </Row>
-
-          <Row className="mb-3">
-            <Col md={3} className="text-end">
-              <Form.Label>Display Grade as</Form.Label>
-            </Col>
-            <Col md={9}>
-              <Form.Select id="wd-display-grade-as">
-                <option value="Percentage">Percentage</option>
-              </Form.Select>
-            </Col>
-          </Row>
-
-          <Row className="mb-4">
-            <Col md={3} className="text-end">
-              <Form.Label>Submission Type</Form.Label>
-            </Col>
-            <Col md={9}>
-              <Form.Select id="wd-submission-type" className="mb-3">
-                <option value="Online">Online</option>
-              </Form.Select>
-
-              <div className="text-center">
-                <Form.Label>Online Entry Options</Form.Label>
-                <div className="d-inline-block text-start">
-                  {['Text Entry', 'Website URL', 'Media Recordings',
-                    'Student Annotation', 'File Uploads'].map((label) => (
-                      <Form.Check
-                          key={label}
-                          type="checkbox"
-                          id={`wd-${label.toLowerCase().replace(' ', '-')}`}
-                          label={label}
-                      />
-                  ))}
-                </div>
-              </div>
-            </Col>
-          </Row>
-
-          <Form.Group className="text-center mb-3">
-            <Form.Label>Assign to</Form.Label>
-            <Form.Control id="wd-assign-to" defaultValue="Everyone" />
-          </Form.Group>
-
-          <Form.Group className="text-center mb-3">
-            <Form.Label>Due</Form.Label>
-            <Form.Control
-                type="date"
-                id="wd-due-date"
-                defaultValue="2024-05-13"
-            />
-          </Form.Group>
-
-          <Form.Group className="text-center mb-3">
-            <Form.Label>Available from - Until</Form.Label>
-            <div className="d-flex justify-content-center gap-2">
-              <Form.Control
-                  type="date"
-                  id="wd-available-from"
-                  defaultValue="2024-05-06"
-              />
-              <Form.Control
-                  type="date"
-                  id="wd-available-until"
-                  defaultValue="2024-05-20"
-              />
+          <div className="form-group mb-4">
+            <label htmlFor="wd-description" className="mb-2">Description</label>
+            <div id="wd-description" className="form-control" style={{ height: 'auto', whiteSpace: 'pre-wrap' }}>
+              The assignment is <a href="" style={{ color: 'red' }}>available online</a>. <br /><br />
+              Submit a link to the landing page of your Web application running on Netlify. <br /><br />
+              The landing page should include the following:
+              <ul>
+                <li>Your full name and section</li>
+                <li>Links to each of the lab assignments</li>
+                <li>Link to the Kambaz application</li>
+                <li>Links to all relevant source code repositories</li>
+              </ul>
+              The Kambaz application should include a link to navigate back to the landing page.
             </div>
-          </Form.Group>
+          </div>
+
+          <div className="form-group mb-4">
+            <label htmlFor="wd-points" className="mb-2">Points</label>
+            <input id="wd-points" className="form-control" type="number" defaultValue={100} />
+          </div>
+
+          <div className="form-group mb-4">
+            <label htmlFor="wd-group" className="mb-2">Assignment Group</label>
+            <select id="wd-group" className="form-control">
+              <option value="Assignments">ASSIGNMENTS</option>
+            </select>
+          </div>
+
+          <div className="form-group mb-4">
+            <label htmlFor="wd-display-grade-as" className="mb-2">Display Grade as</label>
+            <select id="wd-display-grade-as" className="form-control">
+              <option value="Percentage">Percentage</option>
+            </select>
+          </div>
+
+          <div className="form-group mb-4">
+            <label htmlFor="wd-submission-type" className="mb-2">Submission Type</label>
+            <select id="wd-submission-type" className="form-control">
+              <option value="Online">Online</option>
+            </select>
+          </div>
+
+          <div className="mb-4">
+            <label className="form-label fw-bold">Online Entry Options</label>
+            <div className="form-check">
+              <input type="checkbox" id="wd-text-entry" className="form-check-input" />
+              <label htmlFor="wd-text-entry" className="form-check-label">Text Entry</label>
+            </div>
+            <div className="form-check">
+              <input type="checkbox" id="wd-website-url" className="form-check-input" defaultChecked />
+              <label htmlFor="wd-website-url" className="form-check-label">Website URL</label>
+            </div>
+            <div className="form-check">
+              <input type="checkbox" id="wd-media-recordings" className="form-check-input" />
+              <label htmlFor="wd-media-recordings" className="form-check-label">Media Recordings</label>
+            </div>
+            <div className="form-check">
+              <input type="checkbox" id="wd-student-annotation" className="form-check-input" />
+              <label htmlFor="wd-student-annotation" className="form-check-label">Student Annotation</label>
+            </div>
+            <div className="form-check">
+              <input type="checkbox" id="wd-file-upload" className="form-check-input" />
+              <label htmlFor="wd-file-upload" className="form-check-label">File Uploads</label>
+            </div>
+          </div>
+
+          <div className="form-group mb-4">
+            <label className="form-label fw-bold">Assign To</label>
+            <select className="form-control">
+              <option value="everyone">Everyone</option>
+              <option value="skill1">Someone</option>
+              <option value="skill2">No one</option>
+            </select>
+          </div>
+
+          <div className="form-group mb-4">
+            <label className="form-label fw-bold">Due Date</label>
+            <input type="datetime-local" className="form-control" defaultValue="2024-05-13T11:59" />
+          </div>
+
+          <div className="form-group mb-4">
+            <label className="form-label fw-bold">Available From</label>
+            <input type="datetime-local" className="form-control" defaultValue="2024-05-06T12:00" />
+          </div>
+
+          <div className="form-group mb-4">
+            <label className="form-label fw-bold">Until</label>
+            <input type="date" className="form-control" />
+          </div>
 
           <hr />
 
-          <div className="d-flex justify-content-end gap-2">
-            <Button variant="secondary">Cancel</Button>
-            <Button variant="danger">Save</Button>
+          <div className="text-end">
+            <Link to={`#/Kambaz/Courses/${cid}/Assignments`} className="btn btn-secondary me-3">Cancel</Link>
+            <button type="button" className="btn btn-danger">Save</button>
           </div>
-        </Form>
+        </form>
       </div>
   );
 }
