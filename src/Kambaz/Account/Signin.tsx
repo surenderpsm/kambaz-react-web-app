@@ -1,44 +1,31 @@
-import { Link } from "react-router-dom";
-
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { setCurrentUser } from "./reducer.ts";
+import { useDispatch } from "react-redux";
+import * as db from "../Database";
 export default function Signin() {
+  const [credentials, setCredentials] = useState<any>({});
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const signin = () => {
+    const user = db.users.find(
+      (u: any) => u.username === credentials.username && u.password === credentials.password);
+    if (!user) return;
+    dispatch(setCurrentUser(user));
+    navigate("/Kambaz/Dashboard");
+  };
+
   return (
-      <div className="container d-flex justify-content-center align-items-center">
-        <div style={{ width: '200px' }}>
-          <h1 className="mb-4">Sign in</h1>
-          <form>
-            <div className="mb-3">
-              <input
-                  id="wd-username"
-                  type="text"
-                  placeholder="Username"
-                  className="form-control"
-                  required
-              />
-            </div>
-            <div className="mb-3">
-              <input
-                  id="wd-password"
-                  type="password"
-                  placeholder="Password"
-                  className="form-control"
-                  required
-              />
-            </div>
-            <Link
-                id="wd-signin-btn"
-                to="/Kambaz/Account/Profile"
-                className="btn btn-primary w-100 mb-3">
-              Sign In
-            </Link>
-          </form>
-          <div className="text-center">
-            <Link
-                id="wd-signup-link"
-                to="/Kambaz/Account/Signup"
-                className="text-primary"> Sign Up
-            </Link>
-          </div>
-        </div>
-      </div>
+    <div id="wd-signin-screen">
+      <h3>Sign in</h3>
+      <input defaultValue={credentials.username}
+        onChange={(e) => setCredentials({ ...credentials, username: e.target.value })}
+        className="form-control mb-2" placeholder="username" id="wd-username" />
+      <input defaultValue={credentials.password}
+        onChange={(e) => setCredentials({ ...credentials, password: e.target.value })}
+        className="form-control mb-2" placeholder="password" type="password" id="wd-password" />
+      <button onClick={signin} id="wd-signin-btn" className="btn btn-primary w-100" > Sign in </button>
+      <Link id="wd-signup-link" to="/Kambaz/Account/Signup">Sign up</Link>
+    </div>
   );
 }

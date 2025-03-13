@@ -1,54 +1,13 @@
+//import React from "react";
 import { Link } from "react-router-dom";
-
-
 export default function Signup() {
   return (
-      <div className="container d-flex justify-content-center align-items-center">
-        <div style={{ width: '200px' }}>
-          <h1 className="mb-4">Signup</h1>
-          <form>
-            <div className="mb-3">
-              <input
-                  id="wd-username"
-                  type="text"
-                  placeholder="Username"
-                  className="form-control"
-                  required
-              />
-            </div>
-            <div className="mb-3">
-              <input
-                  id="wd-password"
-                  type="password"
-                  placeholder="Password"
-                  className="form-control"
-                  required
-              />
-            </div>
-            <div className="mb-3">
-              <input
-                  id="wd-password"
-                  type="password"
-                  placeholder="Verify password"
-                  className="form-control"
-                  required
-              />
-            </div>
-            <Link
-                id="wd-signin-btn"
-                to="/Kambaz/Account/Profile"
-                className="btn btn-primary w-100 mb-3">
-              Sign Up
-            </Link>
-          </form>
-          <div className="text-center">
-            <Link
-                id="wd-signup-link"
-                to="/Kambaz/Account/Signin"
-                className="text-primary"> Sign In
-            </Link>
-          </div>
-        </div>
-      </div>
-  );
-}
+    <div id="wd-signup-screen">
+      <h3>Sign up</h3>
+      <input placeholder="Username" className="form-control mb-2"/>
+      <input placeholder="Password" type="password" className="form-control mb-2"/>
+      <input placeholder="Verify password" type="password" className="form-control mb-2"/>
+      <Link to="/Kambaz/Account/Profile" className="btn btn-primary w-100"> Sign up </Link>
+      <Link to="/Kambaz/Account/Signin" >Sign in</Link>
+    </div>
+);}

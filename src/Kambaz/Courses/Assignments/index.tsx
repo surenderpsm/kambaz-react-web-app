@@ -1,70 +1,71 @@
+//import React from "react";
+import "../../styles.css";
 import { BsGripVertical } from "react-icons/bs";
-import LessonControlButtons from "../Modules/LessonControlButtons";
-import "./styles.css";
-import {IoEllipsisVertical } from "react-icons/io5";
-import { FaCaretDown, FaPlus } from "react-icons/fa";
-import { MdAssignmentAdd } from "react-icons/md";
-import { useParams } from "react-router-dom";
-import * as db from "../../Database";
-
+import { MdOutlineAssignment } from "react-icons/md";
+import { FaTrash } from "react-icons/fa";
+import AssignmentControlButtons from "./AssignmentControlButtons.tsx";
+import DescControlButtons from "./DescControlButtons.tsx";
+import AssignmentControls from "./AssignmentControls.tsx";
+import { Link, useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { setAssignment, deleteAssignment } from "./reducer.ts";
 export default function Assignments() {
   const { cid } = useParams();
-  const { assignments } = db;
-  const filteredAssignments = assignments.filter(assignment => assignment.course === cid);
+  const intialAssignment = {
+    title: "New Assignment Title",
+    course: cid,
+    description: "New Description",
+    points: "100",
+    due: "2023-09-18T23:59",
+    unlock: "2023-09-11T00:00"
+  }
+  const { assignments } = useSelector((state: any) => state.assignmentReducer);
+  //const { assignment } = useSelector((state: any) => state.assignmentReducer);
+  const dispatch = useDispatch();
   return (
-      <div id="wd-assignments">
-        <div className="row align-items-center">
-          <div className="col-auto flex-grow-1">
-            <input id="wd-search-assignment" className="form-control" placeholder="Search for assignments..." style={{ width: '100%' }} />
+    <div className="me-4">
+      <AssignmentControls setAssignment={() => dispatch(setAssignment(intialAssignment))} /><br /><br /><br /><br />
+      <ul id="wd-modules" className="list-group rounded-0">
+        <li className="wd-module list-group-item p-0 mb-5 fs-5 border-gray">
+          <div className="wd-title p-3 ps-2 bg-secondary">
+            <BsGripVertical className="me-2 fs-3" />
+            ASSIGNMENTS
+            <AssignmentControlButtons />
+            <span className="float-end border boder-dark rounded p-1">40% of Total</span>
           </div>
-          <div className="col-auto d-flex justify-content-end">
-            <button id="wd-add-assignment-group" className="btn mr-1">+ Group</button>
-            <button id="wd-add-assignment" className="btn">+ Assignment</button>
-          </div>
-        </div> <br />
-
-        <div className="d-flex justify-content-between align-items-center assignment-header px-3 py-2">
-          <div className="d-flex align-items-center wide-rectangle">
-            <BsGripVertical className="me-2 fs-5" />
-            <FaCaretDown className="me-2 fs-5" />
-            <h6 className="mb-0 fw-bold">ASSIGNMENTS</h6>
-          </div>
-          <div className="d-flex align-items-center">
-                    <span className="elliptical-outline me-2">
-                        40% of Total
-                    </span>
-            <FaPlus style={{ marginRight: '5px', marginLeft: "5px" }} />
-            <IoEllipsisVertical className="fs-4" />
-          </div>
-        </div>
-
-
-
-        <ul id="wd-assignment-list" className="mt-1">
-          {filteredAssignments.map(assignment => (
-              <li key={assignment._id} className="wd-assignment-list-item d-flex align-items-center mt-3">
-                <div className="assignment-icons d-flex align-items-center me-2">
-                  <BsGripVertical className="me-2 fs-5 spacing" />
-                  <MdAssignmentAdd className="text-success fs-5 spacing" />
+          <ul className="wd-lessons list-group rounded-0">
+            {assignments.filter((assignment: any) => assignment.course === cid).map((assignment: any) => (
+              <li className="wd-lesson list-group-item p-3 ps-1">
+                <div className="position-absolute top-50 start-0 translate-middle-y">
+                  <BsGripVertical className="me-2 fs-3" />
+                  <MdOutlineAssignment className="me-2 fs-3" color="green" />
                 </div>
-                <div className="assignment-content text-start flex-grow-1">
-                  <h3 className="assignment-title mb-0">
-                    <a href={`#/Kambaz/Courses/${cid}/Assignments/${assignment._id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
-                      {assignment.title}
-                    </a>
-                  </h3>
-                  <div className="assignment-details">
-                    <span className="text-danger">Multiple Modules</span> | <b>Not available until</b> May 25 at 12:00am |
-                    <br />
-                    <b>Due</b> June 13 at 11:59pm | 100 pts
-                  </div>
+                <div className="position-absolute top-50 start-50 translate-middle w-75">
+                  <Link className="wd-assignment-link text-black link-underline link-underline-opacity-0"
+                    to={`./${assignment._id}`} onClick={() => dispatch(setAssignment(assignment))}>
+                    {assignment.title}
+                  </Link>
+                  <p><text className="text-danger">Multiple Modules</text> | <b>Not Available until</b> {assignment.unlock.split("T")[0]} at {assignment.unlock.split("T")[1]} | <b>Due</b> {assignment.due.split("T")[0]} at {assignment.due.split("T")[1]} | {assignment.points} pts</p>
                 </div>
-                <div className="d-flex">
-                  <LessonControlButtons />
+                <div className="position-absolute top-50 end-0 translate-middle-y">
+                  <FaTrash className="text-danger me-2" onClick={(e) => {
+                    e.preventDefault();
+
+                    const confirmDelete = window.confirm(
+                      "Are you sure you want to delete this assignment?"
+                    );
+                    if (confirmDelete) {
+                      dispatch(deleteAssignment(assignment._id));
+                    }
+                  }} />
+                  <DescControlButtons />
                 </div>
+                <br /><br /><br />
               </li>
-          ))}
-        </ul>
-      </div>
+            ))}
+          </ul>
+        </li>
+      </ul>
+    </div>
   );
 }
