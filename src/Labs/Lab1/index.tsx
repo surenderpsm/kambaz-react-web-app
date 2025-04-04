@@ -2,8 +2,8 @@ export default function Lab1() {
     return (
     <div id="wd-labs1">
         <h2>Lab 1</h2>
-        <h3><em>Dheeraj Chintamreddy CS5610.35649.202530</em></h3>
-        <a href= "https://github.com/dheeraj-creddy/kambaz-react-web-app">
+        <h3><em>Surender Soundiramourty CS5610</em></h3>
+        <a href= "https://github.com/surenderpsm/kambaz-react-web-app">
             github repo
         </a>
         <h3>HTML Examples</h3>
