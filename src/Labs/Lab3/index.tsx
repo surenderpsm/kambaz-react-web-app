@@ -1,6 +1,6 @@
-import VariablesAndConstants from "./VariablesAndConstants.tsx";
+import VariablesAndConstants from "./VariablesAndConstants";
 import VariableTypes from "./VariableTypes.tsx";
-import BooleanVariables from "./BooleanVariables.tsx";
+import BooleanVariables from "./BooleanVariables";
 import IfElse from "./IfElse.tsx";
 import {TernaryOperator} from "./TernaryOperator.tsx";
 import ConditionalOutputIfElse from "./ConditionalOutputIfElse.tsx";
@@ -26,10 +26,10 @@ import Destructing from "./Destructing.tsx";
 import FunctionDestructing from "./FunctionDestructing.tsx";
 import DestructingImports from "./DestructingImports.tsx";
 import Classes from "./Classes.tsx";
-import Add from "./Add.tsx";
-import Square from "./Square.tsx";
-import Highlight from "./Highlight.tsx";
-import PathParameters from "./PathParameters.tsx";
+import Add from "./Add";
+import Square from "./Square";
+import Highlight from "./Highlight";
+import PathParameters from "./PathParameters";
 
 export default function Lab3() {
     return (
@@ -64,7 +64,7 @@ export default function Lab3() {
                 <FunctionDestructing/>
                 <DestructingImports />
                 <Classes />
-                <Add a={5} b={9} />
+                <Add a={3} b={4} />
                 <h4>Square of 4</h4>
                 <Square>4</Square>
                 <hr />

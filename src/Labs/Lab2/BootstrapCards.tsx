@@ -1,5 +1,5 @@
 import {Button, Card} from "react-bootstrap";
-
+// hello world!
 export default function BootstrapCards()  {
   return (
       <div id="wd-css-navigating-with-cards">
@@ -7,7 +7,7 @@ export default function BootstrapCards()  {
           Cards
         </h2>
         <Card style={{width: "18rem"}}>
-          <Card.Img variant="top" src="tesla-bot.jpg"/>
+          <Card.Img variant="top" src="../images/honda.png"/>
           <Card.Body>
             <Card.Title>Stacking Starship</Card.Title>
             <Card.Text>
