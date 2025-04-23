@@ -113,7 +113,7 @@ export default function Dashboard(
                         <div className="wd-dashboard-course col" style={{ width: "300px" }}>
                             <div className="card rounded-3 overflow-hidden">
 
-                                <img src={`images/${course.image}`} width="100%" height={160} />
+                                <img src={`/images/${course.image}`} width="100%" height={160} />
                                 <div className="card-body">
                                     <h5 className="wd-dashboard-course-title card-title">
                                         {course.name} </h5>
